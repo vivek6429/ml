@@ -11,7 +11,7 @@
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import sys,os
+import sys,os,subprocess,platform # to open tree  image in default app
 import numpy as np
 import pandas as pd
 #############################
@@ -30,7 +30,11 @@ import io # IO.string
 
 class Ui_MainWindow(object):
     def __init__(self):
-        print("helloo")
+        print("helloo.....filling..data..was..not..able..to..do..autocomplete..")
+        print("Always select file \n no defaults and failsafe installed")
+        print("Always select file \n no default file and failsafe installed")
+        print("Always select file \n no default file and failsafe installed")
+        print("Always select file \n no default file and failsafe installed")
         # self.selectFile(self.tempwindow)
     
     def browse(self):
@@ -39,7 +43,7 @@ class Ui_MainWindow(object):
 
 # the entire home screen gui
     def setuphomeUi(self, MainWindow):
-        print("hellooworlkd")
+        print("hellooworld")
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(508, 504)
@@ -226,7 +230,7 @@ class Ui_MainWindow(object):
         for i in res:
             print(i) 
             self.listWidget.addItem(i)
-# now for the asssignment 2----------------------------------------------------------------------
+# now for the asssignment 2------------------------viv------viv----------------------------------------
     # assignment 2 gui
 
     def setupassignment2Ui(self, diabatese):
@@ -248,11 +252,13 @@ class Ui_MainWindow(object):
 
         self.pushButton_selectdiabatese = QPushButton(self.centralwidget)
         self.pushButton_selectdiabatese.setObjectName(u"pushButton_selectdiabatese")
+        self.pushButton_selectdiabatese.clicked.connect(self.selectFilediab)
 
         self.gridLayout.addWidget(self.pushButton_selectdiabatese, 0, 5, 1, 2)
 
         self.radioButton_useANN = QRadioButton(self.centralwidget)
         self.radioButton_useANN.setObjectName(u"radioButton_useANN")
+
 
         self.gridLayout.addWidget(self.radioButton_useANN, 1, 0, 1, 5)
 
@@ -268,37 +274,37 @@ class Ui_MainWindow(object):
 
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
-
+        self.lineEdit.setText("5")
         self.gridLayout.addWidget(self.lineEdit, 4, 0, 1, 1)
 
         self.lineEdit_2 = QLineEdit(self.centralwidget)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
-
+        self.lineEdit_2.setText("545")
         self.gridLayout.addWidget(self.lineEdit_2, 4, 1, 1, 1)
 
         self.lineEdit_3 = QLineEdit(self.centralwidget)
         self.lineEdit_3.setObjectName(u"lineEdit_3")
-
+        self.lineEdit_3.setText("38.7")
         self.gridLayout.addWidget(self.lineEdit_3, 4, 2, 1, 1)
 
         self.lineEdit_4 = QLineEdit(self.centralwidget)
         self.lineEdit_4.setObjectName(u"lineEdit_4")
-
+        self.lineEdit_4.setText("34")
         self.gridLayout.addWidget(self.lineEdit_4, 4, 3, 1, 1)
 
         self.lineEdit_5 = QLineEdit(self.centralwidget)
         self.lineEdit_5.setObjectName(u"lineEdit_5")
-
+        self.lineEdit_5.setText("155")
         self.gridLayout.addWidget(self.lineEdit_5, 4, 4, 1, 1)
 
         self.lineEdit_6 = QLineEdit(self.centralwidget)
         self.lineEdit_6.setObjectName(u"lineEdit_6")
-
+        self.lineEdit_6.setText("84")
         self.gridLayout.addWidget(self.lineEdit_6, 4, 5, 1, 1)
 
         self.lineEdit_7 = QLineEdit(self.centralwidget)
         self.lineEdit_7.setObjectName(u"lineEdit_7")
-
+        self.lineEdit_7.setText("0.619")
         self.gridLayout.addWidget(self.lineEdit_7, 4, 6, 1, 1)
 
         self.checkBox_dt = QCheckBox(self.centralwidget)
@@ -321,6 +327,11 @@ class Ui_MainWindow(object):
         self.pushButton_back.clicked.connect(self.goback)
 
         self.gridLayout.addWidget(self.pushButton_back, 7, 0, 1, 2)
+        ####### THE PREDICT ACTION INITIATION
+        self.pushButton_predict = QPushButton(self.centralwidget)
+        self.pushButton_predict.setObjectName(u"pushButton_predict")
+        self.gridLayout.addWidget(self.pushButton_predict, 7, 5, 1, 2)
+        self.pushButton_predict.clicked.connect(self.assignment2action)
 
         diabatese.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(diabatese)
@@ -355,6 +366,147 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("diabatese", u"Result", None))
         self.pushButton_back.setText(QCoreApplication.translate("diabatese", u"Back", None))
         self.menufile.setTitle(QCoreApplication.translate("diabatese", u"file", None))
+        self.pushButton_predict.setText(QCoreApplication.translate("diabatese", u"Predict", None))
+   
+   
+    def selectFilediab(self):
+        self.fileNamediab =QFileDialog.getOpenFileName(self.tempwindow,"Diabates file(*.csv)")
+        print("DIABATESe csv",self.fileNamediab[0])
+        pass 
+    
+    def assignment2action(self):
+        # need some safety here for data type
+        # daata types
+        #int64,int64,float64,int64,int64,int64,float64
+        self.Preg=int(self.lineEdit.text())
+        self.insulin=int(self.lineEdit_2.text())
+        self.bmi=float(self.lineEdit_3.text())
+        self.age=int(self.lineEdit_4.text())
+        self.gluco=int(self.lineEdit_5.text())
+        self.bp=int(self.lineEdit_6.text())
+        self.pedigree=float(self.lineEdit_7.text())
+        
+        col_names = ['pregnant', 'glucose', 'bp', 'skin', 'insulin', 'bmi', 'pedigree', 'age', 'label']
+        # load dataset
+        pima = pd.read_csv(self.fileNamediab[0], header=1, names=col_names)
+        # print("you did not load the csv file")
+        # self.setupassignment2Ui(self.tempwindow) # relod the window
+        #split dataset in features and target variable
+        feature_cols = ['pregnant', 'insulin', 'bmi', 'age','glucose','bp','pedigree']
+        X = pima[feature_cols] # Features
+        y = pima.label # Target variable
+
+        # Split dataset into training set and test set
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1) # 70% training and 30% test
+        
+        ################################NN or DT
+        
+        if(self.radioButton_useANN.isChecked==False): 
+
+
+
+
+            # Create Decision Tree classifer object
+            print(self.checkBox_dt.isChecked())
+            if self.checkBox_dt.isChecked() == True :
+                clf = DecisionTreeClassifier(criterion="entropy", max_depth=3)
+            else :
+                clf = DecisionTreeClassifier()
+            # Train Decision Tree Classifer
+            clf = clf.fit(X_train,y_train)
+            y_pred = clf.predict(X_test)
+            
+            ########hereeeeeeeeeeeeee
+            data=pd.DataFrame(columns=feature_cols)
+            data.loc[0]=[self.Preg,self.insulin,self.bmi,self.age,self.gluco,self.bp,self.pedigree]
+            print(data)
+            y_pred_output=clf.predict(data)
+            self.lineEdit_8.setText(str(y_pred_output))
+            print("op for user input",y_pred_output)
+
+
+
+            print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+            dot_data = io.StringIO()
+            export_graphviz(clf, out_file=dot_data,  
+                            filled=True, rounded=True,
+                            special_characters=True,feature_names = feature_cols,class_names=['0','1'])
+            graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+            # try :
+            opfile_loc=str(os.path.dirname(self.fileNamediab[0])+'/DT1.png')
+            print(opfile_loc)
+            graph.write_png(opfile_loc)
+            print("image filesaved successfully")
+            if platform.system() == 'Darwin':# macOS
+                subprocess.call(('open', opfile_loc))
+            elif platform.system() == 'Windows':# Windows
+                os.startfile(opfile_loc)
+            else: # linux variants
+                subprocess.call(('xdg-open', opfile_loc))
+            # except :
+                # print("failed to write or open image, errror related to os maybe ??")
+        else :
+            np.random.seed(56)  
+            weights = np.random.rand(7) # 7 features
+            bias = np.random.rand(1)  
+            lr = 0.05 
+            def sigmoid(x): 
+                return 1/(1+np.exp(-x))
+            def sigmoid_der(x):   
+                return sigmoid(x)*(1-sigmoid(x))
+            
+            # Not gona TRAIN 
+            #for epoch in range(800000000):
+                # inputs=X_train
+                # #      FEED FORWARD 
+                # # find dot product for feed forward
+                # #  step1
+                # XW = X_train.dot(weights) + bias
+                # # Now comes the acivation function to squash the value to 0 and 1
+                # #  step2
+                # z  = sigmoid(XW)
+                # # predicted ops at z
+                
+                # # now   BACK PROPOGATION
+                # # step1 find the cost
+                # error = z - y_train # predicted - observed 
+                # print(error.sum())
+                # # step 2
+                # dcost_dpred=error
+                # dpred_dz=sigmoid_der(z)
+                # #z_delta = dcost_dpred * dpred_dz
+                # z_delta = dcost_dpred.mul(dpred_dz)
+                # inputs=X_train.transpose()
+                # weights -= lr * inputs.dot(z_delta)
+                
+                # for num in z_delta:
+                #         bias -= lr * num
+            # USE WEIGHTS
+            weigh=np.array([2142.628318,151.983474,1235.210487,453.550976,694.764757,-222.415663,17159.267891])
+            ind=['pregnant', 'insulin', 'bmi', 'age', 'glucose', 'bp', 'pedigree']
+            weights=pd.Series(weigh,index=ind)
+            bias=np.array([-126089.57821719])
+            print(weights)
+            print(bias)
+            data=pd.DataFrame(columns=feature_cols)
+            data.loc[0]=[self.Preg,self.insulin,self.bmi,self.age,self.gluco,self.bp,self.pedigree]
+            result=sigmoid(data.dot(weights)+bias)
+            self.lineEdit_8.setText(str(result.loc[0]))
+
+            print("op for user input",result.loc[0])
+
+
+            # weights=pd.Series[np.array[134.731549,52.884100,-108.668743,-10.031663,45.716983,-700.091324,6.364799]]
+
+
+
+
+
+                
+
+
+
+
 
 
 
