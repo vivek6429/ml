@@ -1,0 +1,12 @@
+name :    .a-size-medium
+price :   .a-price-whole
+discount : 	.a-letter-space+ span 	note error
+EMI :		.a-truncate-cut
+Free delivery:   .s-align-children-center+ .a-row
+prime check ?  : .s-prime .a-icon-medium
+
+image : .s-image-fixed-height .s-image
+
+
+
+.sg-col-20-of-24 .s-result-item .s-asin .sg-col-0-of-12 .sg-col-28-of-32 .sg-col-16-of-20 .sg-col .sg-col-32-of-36 .sg-col-12-of-16 .sg-col-24-of-28
