@@ -3,6 +3,7 @@
 #!/bin/python3
 
 # from bs4 import BeautifulSoup as BS
+print("\nincase of NameError: name 'pyppeteer' is not defined --- RE RUN PROGRAM \n\n\n\n ")
 
 from requests_html import HTMLSession
 import pandas as pd
@@ -21,7 +22,7 @@ except:
 print("Page response :",r.status_code)
     
 if r.ok:
-    print("Got the page ...\n rendering\n may take time \n first run will download chromium " )
+    print("Got the page ...\nrendering\n may take time \nfirst run will download chromium " )
     try:
         r.html.render() # do a scrool down and a 3 sec sleep
     except pyppeteer.errors.TimeoutError:
@@ -137,4 +138,6 @@ try:
     
 except:
     print("Write error")
+session.close()
+input("Press Enter to continue...")
     

@@ -3,6 +3,7 @@
 #!/bin/python3
 
 # from bs4 import BeautifulSoup as BS
+print("\nincase of NameError: name 'pyppeteer' is not defined --- RE RUN PROGRAM \n\n\n\n\n\n ")
 
 from requests_html import HTMLSession
 import pandas as pd
@@ -21,7 +22,7 @@ except:
 print("Page response :",r.status_code)
     
 if r.ok:
-    print("Got the page ...\n rendering\n may take time \n first run will download chromium " )
+    print("Got the page ...\nrendering\nmay take time \nfirst run will download chromium " )
     try:
         r.html.render() # do a scrool down and a 3 sec sleep
     except pyppeteer.errors.TimeoutError:
@@ -36,7 +37,7 @@ if r.ok:
 
 
 #######################################LOOKINF FOR PAGE WITH ALL REVIEWS
-print("Moving to page with all reviews")
+print("\n\n\nMoving to page with all reviews")
 session2 = HTMLSession()
 
 
@@ -135,7 +136,7 @@ for each_review in reviews:
 print(df)
 
 # add this file to .gitignore
-print("do a pip  install xlsxwriter")
+print("\ninfo:do check  xlsxwriter install  if writing failed")
 # writing to excel
 writer = pd.ExcelWriter('reviews_out.xlsx', engine='xlsxwriter')
 
@@ -145,6 +146,6 @@ df.to_excel(writer, sheet_name='Sheet1')
 # Close the Pandas Excel writer and output the Excel file.
 writer.save()
 
-
+input("\nPress Enter to continue...")
 
 

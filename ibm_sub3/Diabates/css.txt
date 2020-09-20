@@ -1,3 +1,16 @@
+
+
+https://www.w3schools.com/cssref/css_selectors.asp
+
+https://requests.readthedocs.io/projects/requests-html/en/latest/
+
+use find to move through
+
+
+wget https://www.youtube.com/watch?v=Oddo4MVeeBY
+
+
+
 name :    .a-size-medium
 price :   .a-price-whole
 discount : 	.a-letter-space+ span 	note error
@@ -10,3 +23,19 @@ image : .s-image-fixed-height .s-image
 
 
 .sg-col-20-of-24 .s-result-item .s-asin .sg-col-0-of-12 .sg-col-28-of-32 .sg-col-16-of-20 .sg-col .sg-col-32-of-36 .sg-col-12-of-16 .sg-col-24-of-28
+
+
+xlswriter 
+
+
+####THE ENTRIES ARE IN : class :  a-section review aok-relative
+# now ,
+# # author name                 .a-profile-name
+# # author profile icon          .a-profile-avatar
+# # author profile link         check attribute inside this
+# # review rating star              .review-rating
+# # review date                    .review-date
+#
+# main content                 class="a-size-base review-text review-text-content"
+# reviewed images              review-image-tile-section
+
