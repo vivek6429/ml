@@ -134,6 +134,7 @@ for each_review in reviews:
 
 print(df)
 
+# add this file to .gitignore
 print("do a pip  install xlsxwriter")
 # writing to excel
 writer = pd.ExcelWriter('reviews_out.xlsx', engine='xlsxwriter')
